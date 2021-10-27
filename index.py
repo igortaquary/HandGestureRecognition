@@ -9,6 +9,7 @@ def closeAfterKey():
     cv2.destroyAllWindows()
 
 def getOrientation(bin_image):
+    cv2.imshow("bin_inv", bin_image)
     img_height, img_width = bin_image.shape[:2]
     x_max = 0
     x_min = img_width
@@ -33,7 +34,7 @@ def getOrientation(bin_image):
 
     bin_rgb = cv2.cvtColor(bin_image, cv2.COLOR_GRAY2RGB)
     cv2.rectangle(bin_rgb, (x_max, y_max), (x_min, y_min), (0, 0, 255), 2)
-    #cv2.imshow("bin_image", bin_rgb)
+    cv2.imshow("bin_image", bin_rgb)
 
     hand_width = x_max - x_min
     hand_height = y_max - y_min
@@ -153,14 +154,14 @@ def Proj(img_name):
     thumb = thumbDetection(segmented, x_max, y_max, x_min, y_min, orientation)
     x_cent, y_cent = centroid(segmented)
     max_peaks = peakDetection(segmented, orientation)
-
     letra = classify(orientation, x_cent, y_cent, max_peaks, thumb)
     
     end = time.time()
     print("\nExecution time (s): " + str(end - start))
 
-    closeAfterKey()
+    #closeAfterKey()
     cv2.destroyAllWindows()
+    #letra = "a"
     return letra
 
 frase = " "
@@ -170,13 +171,16 @@ frase += " "
 frase += Proj("imagem2.jpeg") # L
 frase += Proj("imagem1.jpeg") # O
 frase += Proj("imagem10.jpeg") # V
-frase += Proj("imagem5.jpeg") # E
+frase += Proj("imagem5.png") # E
 frase += " "
-frase += Proj("imagem7.jpeg") # U
+
+frase += Proj("imagem9.jpeg") # I
+frase += Proj("imagem8.jpeg") # P
+frase += Proj("imagem6.jpeg") # I
 
 print(frase)
 
+#Proj("imagem5.jpeg") # E -> com erro de binarização
+#Proj("imagem4.jpeg") # V
 #Proj("imagem3.jpeg") # U
-#Proj("imagem4.jpeg") # P
-#Proj("imagem8.jpeg") # H
-#Proj("imagem9.jpeg") # I
+#Proj("imagem7.jpeg") # U
